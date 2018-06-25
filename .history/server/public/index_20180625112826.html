@@ -57,7 +57,7 @@
                         <img src="assets/images/tag.svg" alt="" class="tag">{{promotion.Description[0].shortDescription}}
                     </div>
                     <hr>
-                    <!-- <div class="flex-container-quantity">
+                    <div class="flex-container-quantity">
                         <div class="flex-item flex-item-1">quantity:</div>
                         <div class="flex-item flex-item-2">
                             <div class=" plus-minus" @click="itemQuantity == 0 ? itemQuantity : itemQuantity -= 1 ">
@@ -68,7 +68,7 @@
                         <div class="flex-item flex-item-4">
                             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALCSURBVFhH7Zg7ixNhFIbjHVZE0dYLWogI22ynhVjYayNoo6IouKvtWug2u/sXhC30B2wKO62UKMSQe1KkSrWlrIl4Q102Gp8TjjB8nvlmJjOLFnnhYZLMed9zksx8k0luookSqN1u7x0Oh9v16b9VvV4/VavVHrB9znYNfvF4qHzmuegxjy91u909att6NRqNMzR9HRgmDn1YqlQqhzQme1Wr1SN8Is+cxknpkXFdI7MTw50l/J3TbGzkqy8UCjs1Pp0IvEzgD7dJWsh8yXZK24wnOd4I2nDDs4LsVc76bdoumcrl8mEC1q3gEL7DCp6G87oX6he0ZTJhTHRCUL8ovlardYDnm+5+DwO8M6OmcaVLiRUWCk3uql2O24/ufh9436g1njAlXedSDSjISqF2v1hMT1oBUaQdEJ6o3S8ayeXLCvCSwYC9WNdxCl84xlhkMKBkTGtEuChas8xRZDTgVY0IF0U/LTN8Y98iZ/gdi2azeVojZMAbVg2vz8FbzfsL8uc1wpb8nrOMyoqWpRKDHjOy/7CsZbby+fwOwzSCd8emvl9LxxY5t4K5Qdj3SMvCReEn1xhgk5APFqxjNzVidBy7+5UvRmaQWY0IFyHUmWYv+FKfJLzJCxoRLhrJz3QzwEcGAw7kOq4R4aLRRcMcSQYDFtXuV6fT2U2x3ENYIaFkMOCc2qNF8ZJjjiTlgP1isbhP7dEqlUoHMfWcEC8MeF/tcph8tWrCoN6/QFvCdM0K8yBXiKNwO/BaJPRps92lbZMJ81hndFzIX2dpOaHtkktuDQl5ZYWnhdwNOK+txhdhUwStug3SQN57rsnntEV6ya0hoQsQ9ksnCS3uGI9rdLZiwBkaJL5fUfr452Wd1bitk/4V8lS+KmcIlwEUqbuXaJ3LSnIPQfNpBr4inw7DLLN9yHZWLvyxrq0TTfRfK5f7Ddwu+ywJqAfGAAAAAElFTkSuQmCC">
                         </div>
-                    </div> -->
+                    </div>
 
                     <div class="flex-container outline">
                         <div class="row quantity">quantity:</div>
@@ -92,7 +92,7 @@
                         </span>
 
                         <span>
-                            <button class="btn-buy-add row" v-if="catalogEntry.CatalogEntryView[0].purchasingChannelCode == 0 || catalogEntry.CatalogEntryView[0].purchasingChannelCode == 1">ADD TO CART</button>
+                            <button class="btn-buy-add row">ADD TO CART</button>
                         </span>
 
                     </div>
