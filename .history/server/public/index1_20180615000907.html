@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <title>myRetail</title>
+</head>
+
+<body >
+    <div id="app">
+            
+        <ul class="flex-container">
+            <li class="flex-item">1</li>
+            <li class="flex-item">2</li>
+           
+        </ul>
+        <ul class="flex-container">
+                
+                <li class="flex-item">3</li>
+                
+            </ul>
+        
+          
+
+</body>
+
+<style>
+    .container {
+  display: flex;
+}
+
+.item {
+  background-color: black;
+  box-sizing: border-box;
+  padding: 20px;
+  flex: 2;
+  color: #fff;
+}
+
+.item:nth-child(2) {
+  background-color: grey;
+  flex: 1;
+}
+
+.item:nth-child(3) {
+  background-color: green;
+  flex: 0.5;
+}
+
+@media screen and (max-width:990px) {
+  .container { flex-wrap: wrap;  }
+  .item:first-child { flex-basis: 100%; }
+}
+</style>

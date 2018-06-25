@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <title>myRetail</title>
+</head>
+
+<body >
+    <div id="app">
+            <section class="container">
+                <div class="item">
+                    <h2>title1</h2>
+                    <hr>You'll notice that even though this column has far more content in it, 
+                        instead of the other columns ending early, they size themselves to meet the end
+                        of this column vertically.</div>
+                <div class="item">
+                    <h2>title2</h2>
+                    <hr>Normally, the only way to achieve this would be either a hack, or to set
+                        all boxes to min-height.</div>
+            </section>
+            <section class="container">
+                    <div class="item">
+                        <h2>title3</h2>
+                        <hr>This is a column with not much content.
+                    </div>
+                    <div class="item">
+                        <h2>title3</h2>
+                        <hr>This is a column with not much content.
+                    </div>
+            </section>
+
+
+
+            <style>
+            .cont {
+                display: flex;
+                flex-flow: row wrap;
+                border: 1px solid grey;
+                width: 200px;
+                margin: auto;
+              }
+              
+              .item-1 { background: blue; }
+              .item-2 { background: green; }
+              .item-3 { background: yellow; }
+              .item-4 { background: blue; }
+              .item-5 { background: grey; }
+              .item-6 { background: orange; }
+              .item-7 { background: gold; }
+              .item-1, .item-2, .item-3 { width: 100%; }
+              .item-4, .item-5, .item-6, .item-7 { width: 50%; }</style>
+              <div class="cont">
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4 <br> wrap</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+              </div>
+    </div>
+          
+
+</body>
+
+<style>
+    .container {
+  display: flex;
+}
+
+.item {
+  background-color: black;
+  box-sizing: border-box;
+  padding: 20px;
+  flex: none;
+  color: #fff;
+  width: 50%;
+	/* padding: 10px; */
+}
+
+.item:nth-child(2) {
+  background-color: grey;
+  flex: 2;
+}
+
+.item:nth-child(3) {
+  background-color: green;
+  flex: 2;
+  flex-basis: 50%;
+}
+
+@media screen and (max-width:600px) {
+  .container { flex-wrap: wrap;  }
+  .item:first-child { flex-basis: 100%; }
+}
+</style>

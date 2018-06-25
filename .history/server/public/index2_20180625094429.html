@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>myRetail</title>
+    <link rel="stylesheet" href="assets/styles/vue-modal.css">
+</head>
+
+<body>
+    <div id="app" class="content">
+        <div class="container-wrapper">
+
+
+            <section class="container">
+                <div class="item">
+                    <!-- Container 1 -->
+                    <div class="title-text">{{catalogEntry.CatalogEntryView[0].title}}</div>
+                    <div class="primary-image" id="primary-image">
+                        <img v-bind:src="primaryImage" alt="Main Mixer">
+                    </div>
+                    <!-- view larger image modal  -->
+                    <modal v-if="showModal" @close="showModal = false">
+                        <!-- modal content  -->
+                        <!-- <div class="primary-image" id="primary-image">
+                                <img v-bind:src="primaryImage" alt="Main Mixer">
+                            </div> -->
+                    </modal>
+                    <br>
+                    <br>
+                    <div class="view-larger" @click="showModal = true" id="show-modal">
+                        view larger
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAOISURBVFhH7ZdNSFRRFMftw74oCvreVFSLIrCFgRLhImjTKmpZIRQUGUUrJcJFLgqiEolsFWHRZmrhphYqWWojfoy6cKOpRQYJLoQiKZOm3xn+V9586Lw3jtZi/vDnvjnnf84997777r2Tl0MOaRCNRpd0d3fn6+e/R09Pz8Gurq5K2Aq/UNxv2j+0X2EPz3cjkUhJKBRappDFAZ0Xw7cw6pMDFHrSZlgpFgZ0lM+s1GqWZgrg9zhtI3zK8xPaV7SfnN8RW1NHR8dGpcsuLDGdzMyaigzN9QptCaC5j/aXJ26ImP2SZAf9/f0rSPzGdQJHYLHcaUFBO4lv9cSP9vX1bZF7/iDhI5ecjtppN8nlGzZI4uo8ecK08//iSVQE3Zob5rVtlisJ6I7DUj6GpTLFwZYC/iZXJCyTK3OQ8J0lsyJhkcxJ6Ozs3G0a0/J8SuYk2FpGN6ECx9ra2tbJFRysnQIlMr6QOSXwH3FaCrgkc0rgr3BaBnNO5uAgUaVLZF+rzCmBxneBaNajmZK+XubgIPi9OhxPdxqg812gAV2D9JOzrdm0IHhUSRplmgG2HcxqoSNFnZfWCrzt9WHbl3iKmMbpWZfbZPYPGxVJ3GuokzkG7MewTbsO/JCYcoXHwO+rzscgDsnsHwTasea2l8cyx0DCMy55AD5QeAzkvujx+d7040DgmBK8likGe13YTlDoBUc6vCOtzdZzrw/agNYoPAY0N50e/16Zg4EkESUZkWlWoAn6kbyUdiocDq+WORhIcM91yigLZE4JNL4LHBwcXInmu7QtMgcHRZV4Oq2ROSXQ+C5Qr9xpb8gcHLb3kWRAiX729vbukisJbBUHXKecDmdlToJm76O0kzDwxSMOdq66jkncYrcSueJgHw7+cliDNu6D8AL/Q0++apkzh75Yt+tb0mfNzc3L5Q4E4q+5PHCYwa6Va36wKxaFffAkb5zr2pUIXXhrPfE20Cq5swOtsc+eDiZgBetygyRJsPWG9jS6pP8ncBp7qaTZQXt7+1YSxy4QjnRix2ED7S1ox1cZrW3Cts99M40j9iFYxbM7JrNfpK0/EpdBd8qkJUX8gNXucmpFYV+4Ig22wO2ySQf10LaLxMLsT3wL7fVU63VRinTQzWc7G3AhRR/meQ8zvUruWbGoRWaKXJHZQmKR8Khc/w+8RfJ8Reb/CzZz8HLGd8Qcclgw5OX9BXGBF0ixge/zAAAAAElFTkSuQmCC">
+                        <!-- <button id="show-modal" @click="showModal = true">Show Modal</button> -->
+
+                    </div>
+                    <br>
+                    <br>
+                    <div class="alternate-image">
+                        <div class="imgArrow" v-if="showRarrow" @click="nextAlternateImageSet('left')" > <span >&lt;</span></div>
+
+                        <span v-for="(image, i) in alternateImagesDisplay" :index="i">
+                            <span @click="primaryImageSet(i)">
+                                <img v-bind:class="{'imgOutline': image.image == primaryImage }" v-bind:src="image.image" alt="Main Mixer">
+                            </span>
+                        </span>
+
+                        <div class="imgArrow" v-if="showRarrow" @click="nextAlternateImageSet('right')" > 
+                            <span>
+                                &gt;
+                            </span>
+                        </div>
+                    </div>
+
+                    
+
+                </div>
+                <div class="item">
+                    <!-- container 2 -->
+                    <!-- <h2>title2</h2> -->
+                    <!-- <hr>Normally, the only way to achieve this would be either a hack, or to set
+                        all boxes to min-height.</div> -->
+                    <span class="price">{{catalogEntry.CatalogEntryView[0].Offers[0].OfferPrice[0].formattedPriceValue}}</span>
+                    <span class="online-price-text">{{catalogEntry.CatalogEntryView[0].Offers[0].OfferPrice[0].priceQualifier}}</span>
+                    <hr>
+                    <div class="promotions" v-for="(promotion, i) in catalogEntry.CatalogEntryView[0].Promotions" :index="i">
+                        <img src="assets/images/tag.svg" alt="" class="tag">{{promotion.Description[0].shortDescription}}
+                    </div>
+                    <hr>
+
+                    <div class="flex-container outline"><div class="row quantity">quantity:</div> 
+                    <div class=" plus-minus" @click="itemQuantity == 0 ? itemQuantity : itemQuantity -= 1 ">
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJsSURBVFhH7Zi/a1NRGIZTrQotpaKrIjoUly7d6iAO7roIuuggOLTOdahd2v4LQof6BzSDm05KFK4hP0mGTJk6Sk0EFaTFaHyOfML18N30nnvuiQ554eEk5Pve9+tN7rn3tjDRRA5qt9uzw+HwhLz9t2o0Glfr9foT1pes+/CT10PhC++NnvH6drfbPSNt4dVsNpcJfRsbJg192KpWq+fFJn/VarWLHJEXVrArPTweiGV+YrhrmH+wwjJjvvpSqTQt9n7C8A6Gh3aIL3i+Zp2RmGwyvzeMjmzzvMB7j7N+SuLcVKlULmBwoBnnCRkbEukmGn1PiLQMyFqS2HSSrUQzCwIDvpPodKLJdZ/zxuwUEj9abKYLmsEY2JURRovDbS5fmkFoeqmu4xS+shrHBgdnUcZIFkX7WvM4IPuejJEsin5ozfCNzzY5wx9lBY9VeB/z/Av812QMXeZ+TmsUdqTMSwx6SfH+w7aU6SoWiyeVpt/w17E05qU0s/B5GPeNw2dPpSxZFH62G2N8x+STB18VzzgrMkayMKFObQ4Om/VNGSNZDGhu01WDwAxardZZGSNZDHhLaR4HkYwwWp1O5zTF5hlCMwnJqoxwvCjesppD04+iaE7ij1e5XD5HU88yCQY/q9EbtCaa7mtmeUNOm/WUxLop9BmN/wFbyxWJc5d5NMTkjWbuC75HcEOisguzGYz27AAf8PvINfm6RPjLPBpiugFJdzoutHhivCzW+YoBlwjI+rzSp3/N7LNiF07yr5Dn5quyhrAZQETdY6d9Li+ZZwjCFxn4rjk6DLPNus66Yi78qa6tE030X6tQ+AUvvWib4VJWHwAAAABJRU5ErkJggg==">
+                    </div> <div class="row-plus-minus ">{{itemQuantity}}</div> 
+                    <div class="row-plus-minus plus-minus" @click="itemQuantity += 1;"> 
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALCSURBVFhH7Zg7ixNhFIbjHVZE0dYLWogI22ynhVjYayNoo6IouKvtWug2u/sXhC30B2wKO62UKMSQe1KkSrWlrIl4Q102Gp8TjjB8nvlmJjOLFnnhYZLMed9zksx8k0luookSqN1u7x0Oh9v16b9VvV4/VavVHrB9znYNfvF4qHzmuegxjy91u909att6NRqNMzR9HRgmDn1YqlQqhzQme1Wr1SN8Is+cxknpkXFdI7MTw50l/J3TbGzkqy8UCjs1Pp0IvEzgD7dJWsh8yXZK24wnOd4I2nDDs4LsVc76bdoumcrl8mEC1q3gEL7DCp6G87oX6he0ZTJhTHRCUL8ovlardYDnm+5+DwO8M6OmcaVLiRUWCk3uql2O24/ufh9436g1njAlXedSDSjISqF2v1hMT1oBUaQdEJ6o3S8ayeXLCvCSwYC9WNdxCl84xlhkMKBkTGtEuChas8xRZDTgVY0IF0U/LTN8Y98iZ/gdi2azeVojZMAbVg2vz8FbzfsL8uc1wpb8nrOMyoqWpRKDHjOy/7CsZbby+fwOwzSCd8emvl9LxxY5t4K5Qdj3SMvCReEn1xhgk5APFqxjNzVidBy7+5UvRmaQWY0IFyHUmWYv+FKfJLzJCxoRLhrJz3QzwEcGAw7kOq4R4aLRRcMcSQYDFtXuV6fT2U2x3ENYIaFkMOCc2qNF8ZJjjiTlgP1isbhP7dEqlUoHMfWcEC8MeF/tcph8tWrCoN6/QFvCdM0K8yBXiKNwO/BaJPRps92lbZMJ81hndFzIX2dpOaHtkktuDQl5ZYWnhdwNOK+txhdhUwStug3SQN57rsnntEV6ya0hoQsQ9ksnCS3uGI9rdLZiwBkaJL5fUfr452Wd1bitk/4V8lS+KmcIlwEUqbuXaJ3LSnIPQfNpBr4inw7DLLN9yHZWLvyxrq0TTfRfK5f7Ddwu+ywJqAfGAAAAAElFTkSuQmCC">                    
+                        </div></div>
+                                                                                                                                                                                                     
+                        <div class="flex-container btn-buy ">
+                        <span>
+                            <button class="btn-buy-pickup row">PICK UP IN STORE</button>
+                            <div class="find-in-store">
+                                find in a store
+                            </div>
+                        </span>
+                        
+                        <span>
+                            <button class="btn-buy-add row">ADD TO CART</button>
+                        </span>
+                        
+                    </div>
+                    <br>
+                    <div class="flex-container btn-buy ">
+                        <span class="row-return">
+                            returns
+                        </span>
+                        
+                        <span class="row-return-description">
+                            This item must be returned within 30 days of the ship date. See
+                            <link rel="stylesheet" href="/">return policy for details.
+                            <br> Prices, promotions, styles and availability may vary by store and online.
+                        </span>
+                    </div>
+                    <br>
+                    <div class="flex-container">
+                        <div class="cart-btn row">ADD TO REGISTRY</div>
+                        <div class="cart-btn row">ADD TO LIST</div>
+                        <div class="cart-btn row">SHARE</div>
+
+                    </div>
+                    <br>
+                    <div class="product-highlights">product highlights</div>
+                    <ul v-for="(feature, i) in catalogEntry.CatalogEntryView[0].ItemDescription[0].features" :index="i">
+
+                        <li class="product-highlights-text" v-html="feature">
+                        </li>
+
+                    </ul>
+            </section>
+
+
+            <section class="container sencond-container">
+                <div class="item">
+                    <!-- <h2>title3</h2> -->
+                    <div class="flex-container review-headers">
+                        <div class="row ">
+
+                            <span class="rating-all" v-for="index in parseFloat(catalogEntry.CatalogEntryView[0].CustomerReview[0].consolidatedOverallRating)"
+                                :key="index">
+                                <span>&#x2605;</span>
+                            </span>
+                            <span>overall</span>
+
+                        </div>
+                        <div class="row">
+                            view all {{catalogEntry.CatalogEntryView[0].CustomerReview[0].totalReviews}} reviews
+                        </div>
+
+                    </div>
+                    <div class="flex-container review-content">
+                        <div class="row ">
+                            <div class="subheader">
+                                PRO
+                            </div>
+                            <br> most helpful 4-5 star review
+                            <hr>
+                            <span v-for="(review, i) in catalogEntry.CatalogEntryView[0].CustomerReview[0].Pro" :index="i">
+                                <div v-for="i in 1">
+
+                                    <span class="rating" v-for="index in (5 - parseFloat(review.overallRating) )" :key="index">
+                                        <span class="counter-rating">&#x2605;</span>
+                                    </span>
+                                    <span class="rating" v-for="index in parseFloat(review.overallRating)" :key="index">
+                                        <span>&#x2605;</span>
+                                    </span>
+
+                                    <br>
+                                    <span class="review-subject">{{review.title}}</span>
+                                    <br> {{review.review}}
+                                    <br>
+                                    <span style="width: 2px" class="screen-name">
+                                        {{review.screenName}}
+                                    </span>
+                                    <span style="width: 2px"></span>
+                                    {{review.datePosted}}
+                                    <br>
+
+                                </div>
+                            </span>
+                        </div>
+                        <div class="row">
+                            <div class="subheader">
+                                CON
+                            </div>
+                            <br> most helpful 1-2 star review
+                            <hr>
+
+
+                            <span v-for="(review, i) in catalogEntry.CatalogEntryView[0].CustomerReview[0].Con " :index="i">
+                                <div v-for="i in 1">
+
+                                    <span class="rating" v-for="index in (5 - parseFloat(review.overallRating) )" :key="index">
+                                        <span class="counter-rating">&#x2605;</span>
+                                    </span>
+                                    <span class="rating" v-for="index in parseFloat(review.overallRating)" :key="index">
+                                        <span>&#x2605;</span>
+                                    </span>
+                                    <br>
+                                    <span class="review-subject">{{review.title}}</span>
+                                    <br> {{review.review}}
+                                    <br>
+
+                                    <span style="width: 2px" class="screen-name">
+                                        {{review.screenName}}
+                                    </span>
+                                    {{review.datePosted}}
+                                    <br>
+
+                                </div>
+                            </span>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            </div>
+
+
+
+            <!-- template for the image-modal -->
+            <script type="text/x-template" id="modal-template">
+                <transition name="modal">
+                <div class="modal-mask">
+                    <div class="modal-wrapper">
+                    <div class="modal-container">
+            
+                        <div class="modal-header">
+                        <slot name="header">
+                            <!-- default header -->
+                        </slot>
+                        </div>
+            
+                        <div class="modal-body">
+                        <slot name="body">
+                            <!-- default body -->
+                            <div class="title-text">{{catalogEntry.CatalogEntryView[0].title}}</div>
+
+                            <div class="primary-image" id="primary-image">
+                                    <!-- primaryImage: {{primaryImage}} -->
+                                    <img :src=`${primaryImage}`>
+                                </div>
+                        </slot>
+                        </div>
+            
+                        <div class="modal-footer">
+                        <slot name="footer">
+                            <button class="modal-default-button" @click="$emit('close')">
+                            done
+                            </button>
+                        </slot>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </transition>
+            </script>
+
+        </div>
+
+        <!-- development version, includes helpful console warnings -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+        <script src="assets/vendors/vue.js"></script>
+
+        <!-- production version, optimized for size and speed -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+        <script type="text/javascript" src="/assets/vendors/vue-carousel/vue-carousel.min.js"></script>
+        <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+        <script src="assets/vendors/axios.js"></script>
+
+        <!-- <script src="https://rawgit.com/Wlada/vue-carousel-3d/master/dist/vue-carousel-3d.min.js"></script> -->
+        <script src="assets/js/app.js"></script>
+</body>
+
+
+
+
+<style>
+    * {
+        font-family: Helvetica;
+        color: #000000;
+        /* background: #fff */
+    }
+
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        /*  */
+    }
+
+    .content {
+        max-width: 1200px;
+        width: 100%;
+        margin: auto;
+        /* margin: 15px; */
+        /* padding: 15px; */
+    }
+
+    .container-wrapper {
+        margin: 2em;
+    }
+
+    .container {
+        display: flex;
+
+    }
+
+    .item {
+        /* background-color: black; */
+        box-sizing: border-box;
+        padding: 20px;
+        flex: none;
+        color: #fff;
+        width: 55%;
+        /* margin: 100px 10px 0 10px; */
+        /* padding: 10px; */
+    }
+
+    .item:nth-child(2) {
+        background-color: white;
+        flex: 2;
+        /* margin: 10px 0 0 10px; */
+    }
+
+    .item:nth-child(3) {
+        background-color: green;
+        flex: 2;
+        flex-basis: 50%;
+    }
+
+    .primary-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        overflow: hidden;
+    }
+
+    .primary-image img {
+        /* max-width:100%;
+        max-height:100%;
+        margin: auto; */
+    }
+
+    .alternate-image {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .alternate-image img {
+        height: 100px;
+        width: auto;
+        display: inline-block;
+        margin: auto;
+        padding: 20px;
+
+    }
+
+
+    .title-text {
+        height: 120px;
+        font-size: 26px;
+        line-height: 30px;
+        color: rgb(0, 0, 0);
+        font-family: "Helvetica";
+        text-align: center; 
+    }
+    .title-text sup {
+        color: aqua;
+        font-size: 10px;
+    }
+
+    .price {
+        font-size: 1.8em;
+        /* font-size: 30px; */
+        letter-spacing: -1px;
+        line-height: 14px;
+        color: rgb(0, 0, 0);
+        font-family: "Arial";
+        font-weight: bold;
+    }
+
+    .online-price-text {
+        font-size: .8em;
+        line-height: 29px;
+        color: rgb(102, 102, 102);
+        font-family: "Arial";
+        text-transform: lowercase;
+    }
+
+    .promotions {
+        font-size: 16px;
+        letter-spacing: 0px;
+        line-height: 25px;
+        color: rgb(204, 0, 0);
+        font-family: "Arial";
+        /* text-transform: lowercase; */
+    }
+
+    .tag {
+        margin-right: 10px;
+    }
+
+    .returns {
+        width: 84px;
+        height: 38px;
+        font-size: 20px;
+        letter-spacing: 0px;
+        line-height: 18px;
+        color: rgb(102, 102, 102);
+        font-family: "Helvetica Neue LT Std";
+    }
+
+    .flex-container {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        -ms-box-orient: horizontal;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -moz-flex;
+        display: -webkit-flex;
+        display: flex;
+    }
+
+    .row {
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        width: 50%;
+
+    }
+    .row-plus-minus {
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        width: 16%;
+        cursor: pointer;
+        font-weight: bold;   
+        font-size: 20px; 
+    }
+    .plus-minus {
+        font-size: 60px;
+        fill: aqua;
+        /* background-color: black */
+    }
+    .outline {
+        border: 1px solid gray;
+        width: 220px;
+        padding: 5px;
+    }
+    .quantity {
+        color: rgb(96, 96, 96);
+    }
+    .row-return {
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        font-size: 1em;
+        width: 16%;
+        color: rgb(96, 96, 96);
+        border-right: 1px solid gray;
+        margin-right: 5px;
+    }
+
+    .row-return-description {
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        width: 88%;
+        font-size: .08em;
+        color: rgb(96, 96, 96);
+        margin-left: 5px;
+    }
+
+    .imgArrow {
+        font:50px 'Arial', sans-serif;
+        font-weight: 100;
+        display:inline-block;
+        -webkit-transform: scale(.5, 1);
+        -moz-transform: scale(.5, 1);
+        -ms-transform: scale(.5, 1);
+        --transform: scale(.5, 1);
+        transform: scale(.5, 1);
+        cursor: pointer;
+    }
+    .imgArrow span {
+        color: rgb(96, 96, 96);
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+    .imgOutline{
+        border-color: rgb(96, 96, 96);
+        border-style: solid;
+        padding: 10px;
+        border-width: 1px;
+    }
+    
+    @media screen and (max-width:600px) {
+        .container {
+            flex-wrap: wrap;
+        }
+        .item:first-child {
+            flex-basis: 100%;
+        }
+        .sencond-container.item {
+            max-width: 100%;
+            flex-basis: 100%;
+        }
+        .view-larger {
+            display: none;
+        }
+        .title-text {
+            font-weight: 100; 
+        }
+    }
+
+    .product-highlights {
+        width: 470px;
+        /* height: 316px; */
+        font-size: 36px;
+        line-height: 50px;
+        color: rgb(0, 0, 0);
+        font-family: "Helvetica";
+    }
+
+    .product-highlights-text {
+        /* width: 470px;
+        height: 316px; */
+        font-size: .8em;
+        line-height: 120%;
+        color: rgb(96, 96, 96);
+        font-family: "Helvetica";
+        text-indent: 3px;
+        font-weight: 400;
+    }
+
+    strong,
+    b {
+        font-weight: 400;
+        color: rgb(96, 96, 96);
+
+    }
+
+    .cart-btn {
+        width: 149px;
+        height: 25px;
+        border-radius: 3px;
+        background-color: #f3f3f3;
+        /* border: 1px solid #999999; */
+        font-size: 12px;
+        line-height: 30px;
+        color: rgb(51, 51, 51);
+        font-family: "Arial";
+        display: inline-block;
+        margin: 2px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 25px;
+        cursor: pointer;
+    }
+
+    .btn-buy button:text {
+        -webkit-transform: scale(.5, 1);
+        -moz-transform: scale(.5, 1);
+        -ms-transform: scale(.5, 1);
+        --transform: scale(.5, 1);
+        transform: scale(.5, 1);
+    }
+    .btn-buy-add {
+        width: 225px;
+        height: 40px;
+        border-radius: 3px;
+        box-shadow: 0.5px 0.866px 2px rgba(0, 0, 0, 0.5);
+        background: linear-gradient(rgb(255, 169, 169), red 20%);
+        font-size: .8em;
+        line-height: 19px;
+        color: rgb(255, 255, 255);
+        font-family: "Helvetica";
+        display: inline-block;
+        font-weight: 100;
+        cursor: pointer;
+    }
+
+    .btn-buy-pickup {
+        width: 225px;
+        height: 40px;
+        border-radius: 3px;
+        box-shadow: 0.5px 0.866px 2px rgba(0, 0, 0, 0.5);
+        background: linear-gradient(rgb(92, 92, 92), black 20%);
+        font-size: .8em;
+        line-height: 19px;
+        color: rgb(255, 255, 255);
+        font-family: "Helvetica";
+        display: inline-block;
+        font-stretch: ultra-expanded;
+        font-weight: 100;
+        margin-bottom: 5px;
+        cursor: pointer;
+        margin-right: 10px; 
+    }
+
+    .find-in-store {
+        width: 100px;
+        margin: auto;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 14px;
+        color: rgb(0, 0, 0);
+        font-family: "Helvetica";
+
+    }
+
+    .review-headers {
+        width: 100%;
+        height: 40px;
+        font-size: 14px;
+        letter-spacing: 0px;
+        line-height: 24px;
+        color: rgb(0, 0, 0);
+        font-family: "Arial";
+        font-weight: bold;
+    }
+
+    .review-content {
+        width: 100%;
+        height: 269px;
+        border-radius: 3px;
+        /* border: 1px solid #cbcbcb; */
+        color: rgb(36, 36, 36);
+        /* border: 1px solid #cbcbcb; */
+        background-color: rgb(246, 245, 245);
+        padding: 20px;
+        font-family: "Myriad Pro";
+        font-size: .7em;
+        line-height: 1.5em;
+    }
+
+    .review-subject {
+        width: 207px;
+        height: 257px;
+        font-size: 18px;
+        line-height: 24px;
+        color: rgb(0, 0, 0);
+        font-family: "Arial";
+        font-weight: bold;
+    }
+
+    .screen-name {
+        color: rgb(33, 103, 197);
+        font-family: "Arial";
+    }
+
+    .review-content div {
+        margin: 2px
+    }
+
+    .review-content .subheader {
+        font-weight: 500;
+        font-size: 20px;
+
+        /* -webkit-transform: scale(.8, 1);
+        -moz-transform: scale(.8, 1);
+        -ms-transform: scale(.8, 1);
+        --transform: scale(.8, 1);
+        transform: scale(.8, 1); */
+    }
+
+
+    .rating-all {
+        unicode-bidi: bidi-override;
+        direction: rtl;
+        font-size: 25px;
+    }
+    .rating-all>span {
+        display: inline-block;
+        position: relative;
+        width: 1.1em;
+        color: red
+    }
+    .rating {
+        unicode-bidi: bidi-override;
+        direction: rtl;
+    }
+    .rating>span {
+        display: inline-block;
+        position: relative;
+        width: 1.1em;
+        color: red
+    }
+
+    .rating .counter-rating {
+        color: gray
+    }
+
+    .circle-plus {
+        content: '\e80f'
+    }
+    .circle-minus {
+        content: 'U+2296'
+    }
+
+
+    button:focus {
+        outline: 0;
+    }
+</style>

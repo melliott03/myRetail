@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <title>myRetail</title>
+</head>
+
+<body >
+    <div id="app">
+            <section class="container">
+                <div class="item">
+                    <h2>title1</h2>
+                    <hr>You'll notice that even though this column has far more content in it, 
+                        instead of the other columns ending early, they size themselves to meet the end
+                        of this column vertically.</div>
+                <div class="item">
+                    <h2>title2</h2>
+                    <hr>Normally, the only way to achieve this would be either a hack, or to set
+                        all boxes to min-height.</div>
+            </section>
+            <section class="container">
+                    <div class="item">
+                        <h2>title3</h2>
+                        <hr>This is a column with not much content.
+                    </div>
+            </section>
+    </div>
+          
+
+</body>
+
+<style>
+    .container {
+  display: flex;
+}
+
+.item {
+  background-color: black;
+  box-sizing: border-box;
+  padding: 20px;
+  flex: 2;
+  color: #fff;
+}
+
+.item:nth-child(2) {
+  background-color: grey;
+  flex: 2;
+}
+
+.item:nth-child(3) {
+  background-color: green;
+  flex: 1;
+  flex-basis: 50%;
+}
+
+@media screen and (max-width:600px) {
+  .container { flex-wrap: wrap;  }
+  .item:first-child { flex-basis: 100%; }
+}
+</style>

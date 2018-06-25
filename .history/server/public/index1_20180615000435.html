@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <title>myRetail</title>
+</head>
+
+<body >
+    <div id="app">
+            
+        <ul class="flex-container">
+            <li class="flex-item">1</li>
+            <li class="flex-item">2</li>
+            <li class="flex-item">3</li>
+            <li class="flex-item">4</li>
+            <li class="flex-item">5</li>
+            <li class="flex-item">6</li>
+        </ul>
+        
+          
+
+    <!-- development version, includes helpful console warnings -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<!-- production version, optimized for size and speed -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    <script type="text/javascript" src="/assets/vendors/vue-carousel/vue-carousel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="https://rawgit.com/Wlada/vue-carousel-3d/master/dist/vue-carousel-3d.min.js"></script> -->
+	<script src="assets/js/app.js"></script>
+
+</body>
+
+<style>
+    .flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.flex-item {
+  background: tomato;
+  padding: 5px;
+  width: 200px;
+  height: 150px;
+  margin-top: 10px;
+  
+  line-height: 150px;
+  color: white;
+  font-weight: bold;
+  font-size: 3em;
+  text-align: center;
+}
+</style>
+
+<style>
+    body{
+        width: 100%;
+    }
+    #container {
+        width: 1200px;
+        margin: 0 auto;
+    }
+    .flex-item  {
+        background: salmon;
+        height: 100%;
+        margin: 10px;
+        line-height: 100px;
+        color: white;
+        font-weight: bold;
+        font-size: 2em;
+        text-align: center;
+    }
+    .flex-item:nth-of-type(2) { align-self: left; }
+
+</style>
+
+
+
+<style>
+    .flex-grid {
+        display: flex;
+    }
+    .flex-grid .col {
+        flex: 1;
+    }
+    .flex-grid-thirds {
+        display: flex;
+        justify-content: space-between;
+    }
+    .flex-grid-thirds .col {
+        width: 48%;
+    }
+
+    @media (max-width: 480px) {
+    .flex-grid,
+    .flex-grid-thirds {
+        display: block;
+    }
+    }
+
+
+
+
+* {
+  box-sizing: border-box;
+}
+body {
+  padding: 20px;
+}
+.flex-grid { 
+  margin: 0 0 10px 0;
+}
+
+img { 
+  object-fit: contain;
+}
+</style>
+
+
+
+
+<style>
+    figure {
+  padding: 0;
+  margin: 0;
+}
+
+figure figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #fff;
+  padding: 10px;
+  background-color: black;
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  /* IE 5-7 */
+  filter: alpha(opacity=50);
+  /* Netscape */
+  -moz-opacity: 0.5;
+  /* Safari 1.x */
+  -khtml-opacity: 0.5;
+  /* Good browsers */
+  opacity: 0.5;
+}
+</style>

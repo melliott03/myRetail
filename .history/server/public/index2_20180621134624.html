@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>myRetail</title>
+</head>
+
+<body>
+    <div id="app" class="content">
+        <div class="container-wrapper">
+
+
+            <section class="container">
+                <div class="item">
+                    <!-- Container 1 -->
+                    <div class="title-text">{{catalogEntry.CatalogEntryView[0].title}}</div>
+                    <div class="primary-image" >
+                        <img  v-bind:src="catalogEntry.CatalogEntryView[0].Images[0].PrimaryImage[0].image" alt="Main Mixer">
+                    </div>
+                    <br>
+                    <br>
+                    <div class="view-larger">view larger</div>
+                    <br>
+                    <br>
+                    <div class="alternate-image-container">
+                    <span class="imgArrow" v-if="showLarrow" @click="nextAlternateImageSet('left')" style="font-size: 70px;"> &#8249; </span>
+                    
+                        <span v-for="(image, i) in alternateImagesDisplay" :index="i" >
+                        
+                            <span class="alternate-image">
+                                <img class="" v-bind:src="image.image" alt="Main Mixer">
+                            </span>
+                        </span>
+                    
+                    <span class="imgArrow" v-if="showRarrow" @click="nextAlternateImageSet('right')" style="font-size: 70px;" > &#8250; </span>
+
+                    </div>
+                    
+                </div>
+                <div class="item">
+                    <!-- container 2 -->
+                    <!-- <h2>title2</h2> -->
+                    <!-- <hr>Normally, the only way to achieve this would be either a hack, or to set
+                        all boxes to min-height.</div> -->
+                    <span class="price" >{{catalogEntry.CatalogEntryView[0].Offers[0].OfferPrice[0].formattedPriceValue}}</span>
+                    <span class="online-price-text">{{catalogEntry.CatalogEntryView[0].Offers[0].OfferPrice[0].priceQualifier}}</span>
+                    <hr>
+                    <div class="promotions" v-for="(promotion, i) in catalogEntry.CatalogEntryView[0].Promotions" :index="i">
+                        <img src="assets/images/tag.svg" alt="" class="tag">{{promotion.Description[0].shortDescription}}
+                    </div>
+                    <hr>
+
+                    <p>quantity</p>
+
+                    
+                    <div class="flex-container">
+                        <button class="btn-buy-pickup row">PICK UP IN STORE</button>
+                        <button class="btn-buy-add row">ADD TO CART</button>
+                    </div>
+                    <br>
+                    <span>returns | This item must be returned within 30 days of the ship date. See
+                        <link rel="stylesheet" href="/">return policy for details.</span> Prices, promotions, styles and availability may vary by store and
+                    online.
+                    <!-- <span v-html="catalogEntry.CatalogEntryView[0].ReturnPolicy[0].legalCopy"></span> -->
+
+                    <div class="flex-container">
+                        <div class="cart-btn row">ADD TO REGISTRY</div>
+                        <div class="cart-btn row">ADD TO LIST</div>
+                        <div class="cart-btn row">SHARE</div>
+
+                    </div>
+                    
+
+                    <div class="product-highlights">product highlights</div>
+                    <ul v-for="(feature, i) in catalogEntry.CatalogEntryView[0].ItemDescription[0].features" :index="i">
+
+                        <li class="product-highlights-text" v-html="feature">
+                        </li>
+
+                    </ul>
+            </section>
+
+
+            <section class="container sencond-container">
+                <div class="item">
+                    <!-- <h2>title3</h2> -->
+                    <div class="flex-container">
+                        <div class="row">
+                            {{catalogEntry.CatalogEntryView[0].CustomerReview[0].consolidatedOverallRating}}
+                           **** overall
+                        </div>
+                        <div class="row">
+                            view all {{catalogEntry.CatalogEntryView[0].CustomerReview[0].totalReviews}} reviews
+                        </div>
+                        
+                    </div>
+                    <div class="flex-container">
+                        <div class="row">
+                            PRO
+                            <br> most helpful 4-5 star review
+                            <hr>
+                            <span v-for="(review, i) in catalogEntry.CatalogEntryView[0].CustomerReview[0].Pro" :index="i">
+                                <div v-for="i in 1">
+
+                                    {{review.overallRating}}
+                                    <br> {{review.title}}
+                                    <br> {{review.review}}
+                                    <br> {{review.screenName}}
+                                    <span style="width: 2px"></span>
+                                    {{review.datePosted}}
+                                    <br>
+
+                                </div>
+                            </span>
+                        </div>
+                        <div class="row">
+                            CON
+                            <br> most belpful 1-2 star reviewhr
+                            <hr>
+
+
+                            <span v-for="(review, i) in catalogEntry.CatalogEntryView[0].CustomerReview[0].Con " :index="i">
+                                <div v-for="i in 1">
+
+                                    {{review.overallRating}}
+                                    <br> {{review.title}}
+                                    <br> {{review.review}}
+                                    <br> {{review.screenName}}
+                                    <span style="width: 2px"></span>
+                                    {{review.datePosted}}
+                                    <br>
+
+                                </div>
+                            </span>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            </div>
+
+        </div>
+
+        <!-- development version, includes helpful console warnings -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+        <script src="assets/vendors/vue.js"></script>
+
+        <!-- production version, optimized for size and speed -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+        <script type="text/javascript" src="/assets/vendors/vue-carousel/vue-carousel.min.js"></script>
+        <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+        <script src="assets/vendors/axios.js"></script>
+
+        <!-- <script src="https://rawgit.com/Wlada/vue-carousel-3d/master/dist/vue-carousel-3d.min.js"></script> -->
+        <script src="assets/js/app.js"></script>
+</body>
+
+<style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        /*  */
+    }
+
+    .content {
+        max-width: 1200px;
+        width: 100%;
+        margin: auto;
+        /* margin: 15px; */
+        /* padding: 15px; */
+    }
+
+    .container-wrapper {
+        margin: 2em;
+    }
+
+    .container {
+        display: flex;
+
+    }
+
+    .item {
+        background-color: black;
+        box-sizing: border-box;
+        padding: 20px;
+        flex: none;
+        color: #fff;
+        width: 55%;
+        /* margin: 100px 10px 0 10px; */
+        /* padding: 10px; */
+    }
+
+    .item:nth-child(2) {
+        background-color: white;
+        flex: 2;
+        /* margin: 10px 0 0 10px; */
+    }
+
+    .item:nth-child(3) {
+        background-color: green;
+        flex: 2;
+        flex-basis: 50%;
+    }
+    .primary-image img {
+        display:block;
+        margin:auto;
+    }
+
+    .alternate-image img{
+        width: 100px;
+        display:inline-block;
+        margin:auto;
+    }
+
+
+    .title-text {
+        /* width: 491px; */
+        height: 120px;
+        font-size: 26px;
+        line-height: 30px;
+        color: white;
+        font-family: "Helvetica" ;
+        text-align: center;
+    }
+    .price{
+        font-size: 1.5em;
+        /* font-size: 30px; */
+        letter-spacing: -1px;
+        line-height: 14px;
+        color: rgb(0,0,0);
+        font-family: "Arial";
+        font-weight: bold;
+    }
+    .online-price-text{
+        font-size: .5em;
+        line-height: 29px;
+        color: rgb(102,102,102);
+        font-family: "Arial";
+    }
+    .promotions {
+        font-size: 18px;
+        letter-spacing: 0px;
+        line-height: 32px;
+        color: rgb(204,0,0);
+        font-family: "Arial";
+        /* text-transform: lowercase; */
+    }
+    .returns {
+        width: 84px;
+        height: 38px;
+        font-size: 20px;
+        letter-spacing: 0px;
+        line-height: 18px;
+        color: rgb(102,102,102);
+        font-family: "Helvetica Neue LT Std";
+    }
+
+    .flex-container {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        -ms-box-orient: horizontal;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -moz-flex;
+        display: -webkit-flex;
+        display: flex;
+    }
+
+    .row {
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        width: 50%;
+
+    }
+    .imgArrow{
+        cursor: pointer;
+        /* margin: auto;
+        text-align: center;
+        font-family: "Times New Roman", Times, serif;
+         */
+        /* display:flex; */
+        /* justify-content:center;
+        align-items:center; */
+
+    }
+    
+
+    @media screen and (max-width:600px) {
+        .container {
+            flex-wrap: wrap;
+        }
+        .item:first-child {
+            flex-basis: 100%;
+        }
+        .sencond-container.item {
+            max-width: 100%;
+            flex-basis: 100%;
+        }
+        .view-larger {
+            display: none;
+        }
+    }
+    .product-highlights {
+        width: 470px;
+        /* height: 316px; */
+        font-size: 36px;
+        line-height: 50px;
+        color: rgb(0,0,0);
+        font-family: "Helvetica";
+    }
+    .product-highlights-text {
+        /* width: 470px;
+        height: 316px; */
+        font-size: .8em;
+        /* line-height: 1px; */
+        color: rgb(51,51,51);
+        font-family: "Helvetica";
+        text-indent: 8px;
+        
+    }
+    .cart-btn {
+        width: 149px;
+        height: 25px;
+        border-radius: 3px;
+        background-color: #f3f3f3;
+        /* border: 1px solid #999999; */
+        font-size: 12px;
+        line-height: 30px;
+        color: rgb(51,51,51);
+        font-family: "Arial";
+        display: inline-block;
+        margin: 2px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 25px;
+        cursor: pointer;
+    }
+    .btn {
+        height: 37px; 
+        width: 37px;   
+        background-image:url('http://www.w3.org/html/logo/downloads/HTML5_Logo_32.png');
+        background-repeat:no-repeat;
+    }
+    .btn-buy-add {
+        width: 239px;
+        height: 40px;
+        border-radius: 3px;
+        box-shadow: 0.5px 0.866px 2px rgba(0,0,0,0.5);
+        background: linear-gradient(rgb(255, 169, 169), red 20%);
+        font-size: .8em;
+        line-height: 19px;
+        color: rgb(255,255,255);
+        font-family: "Helvetica";
+        display: inline-block;
+        font-weight: 100;
+        
+    }
+    .btn-buy-pickup {
+        width: 239px;
+        height: 40px;
+        border-radius: 3px;
+        box-shadow: 0.5px 0.866px 2px rgba(0,0,0,0.5);
+        background: linear-gradient(rgb(92, 92, 92), black 20%);
+        font-size: .8em;
+        line-height: 19px;
+        color: rgb(255,255,255);
+        font-family: "Helvetica";
+        display: inline-block;
+        font-stretch:ultra-expanded;
+        font-weight: 100;
+    }
+    .tag {
+        margin-right: 10px;
+    }
+    button:focus {outline:0;}
+</style>

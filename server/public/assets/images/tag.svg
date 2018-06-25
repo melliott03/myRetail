@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 15" width="16" height="15">
+	<defs>
+		<image width="31" height="31" id="img1" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMSAzMSIgd2lkdGg9IjMxIiBoZWlnaHQ9IjMxIj4KCTxzdHlsZT4KCQl0c3BhbiB7IHdoaXRlLXNwYWNlOnByZSB9CgkJLnNocDAgeyBmaWxsOiAjZDUwMDEyIH0gCgk8L3N0eWxlPgoJPGcgaWQ9IlBhZ2UgMSI+CgkJPHBhdGggaWQ9IlBhdGggMSIgY2xhc3M9InNocDAiIGQ9Ik03LjIzIDcuMjNDNi40OSA3Ljk3IDUuMjkgNy45NyA0LjU1IDcuMjNDMy44MSA2LjQ5IDMuODEgNS4zIDQuNTUgNC41NUM1LjI5IDMuODEgNi40OSAzLjgxIDcuMjMgNC41NUM3Ljk3IDUuMyA3Ljk3IDYuNDkgNy4yMyA3LjIzWk02LjcgMEwwIDYuN0wyLjQxIDE1LjhMMTcuMjggMzAuNjdMMzAuNjcgMTcuMjhMMTUuODEgMi40MUw2LjcgMFoiIC8+Cgk8L2c+Cjwvc3ZnPg=="/>
+	</defs>
+	<style>
+		tspan { white-space:pre }
+	</style>
+	<use id="Vector Smart Object copy" href="#img1" transform="matrix(0.522,0,0,0.489,0,0)"/>
+</svg>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <title>myRetail</title>
+</head>
+
+<body >
+    <div id="app">
+    <!-- <div id="container">
+    
+        <p>Hello</p>
+
+
+        <h1>Vue Carousel 3D</h1>
+        <ul>
+        <li><a href="https://wlada.github.io/vue-carousel-3d/" target="_blank">Source</a></li>
+        <li><a href="https://wlada.github.io/vue-carousel-3d/api/" target="_blank">API</a></li>
+        </ul>
+        <p>What is <b>Vue.js</b>? click <a href="https://vuejs.org/" target="_blank">here</a> to know more.</p>
+
+
+        <h2 style="text-align:center">Example</h2>
+        <div id="example">
+        <carousel-3d>
+            <slide v-for="(slide, i) in slides" :index="i">
+            <figure>
+                <img v-bind:src="slide.src" />
+                <figcaption>
+                    <h2>{{slide.title}}</h2>
+                    <p>{{slide.desc}}</p>
+                </figcaption>
+            </figure>
+            </slide>
+        </carousel-3d>
+        </div> -->
+
+          <div class="flex-grid-thirds ">
+            <div class="col flex-item">
+                Piggy1
+                <p>{{catalogEntry.CatalogEntryView[0].title}}</p>
+                <!-- <p>imageURL: {{catalogEntry.CatalogEntryView[0].Images[0].PrimaryImage[0].image}}</p> -->
+                <img v-bind:src="catalogEntry.CatalogEntryView[0].Images[0].PrimaryImage[0].image" alt="Main Mixer">
+                <!-- <img src="./assets/images/Main_Mixer.png" alt="Main Mixer"> -->
+            </div>
+            <div class="col flex-item">Piggy2 <br>
+                    <span>{{catalogEntry.CatalogEntryView[0].Offers[0].OfferPrice[0].formattedPriceValue}}</span>
+                    <span>{{catalogEntry.CatalogEntryView[0].Offers[0].OfferPrice[0].priceQualifier}}</span>
+                <hr>
+                <span v-for="(promotion, i) in catalogEntry.CatalogEntryView[0].Promotions" :index="i" >
+                    {{promotion.Description[0].shortDescription}}</span>
+            </div>
+          </div>
+          <div class="flex-grid-thirds ">
+                <div class="col flex-item">Piggy3
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- development version, includes helpful console warnings -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<!-- production version, optimized for size and speed -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+    <script type="text/javascript" src="/assets/vendors/vue-carousel/vue-carousel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- <script src="https://rawgit.com/Wlada/vue-carousel-3d/master/dist/vue-carousel-3d.min.js"></script> -->
+	<script src="assets/js/app.js"></script>
+
+</body>
+
+<style>
+    body{
+        width: 100%;
+    }
+    #container {
+        width: 1200px;
+        margin: 0 auto;
+    }
+    .flex-item  {
+        background: salmon;
+        height: 100%;
+        margin: 10px;
+        line-height: 100px;
+        color: white;
+        font-weight: bold;
+        font-size: 2em;
+        text-align: center;
+    }
+    .flex-item:nth-of-type(2) { align-self: left; }
+
+</style>
+
+
+
+<style>
+    .flex-grid {
+        display: flex;
+    }
+    .flex-grid .col {
+        flex: 1;
+    }
+    .flex-grid-thirds {
+        display: flex;
+        justify-content: space-between;
+    }
+    .flex-grid-thirds .col {
+        width: 48%;
+    }
+
+    @media (max-width: 480px) {
+    .flex-grid,
+    .flex-grid-thirds {
+        display: block;
+    }
+    }
+
+
+
+
+* {
+  box-sizing: border-box;
+}
+body {
+  padding: 20px;
+}
+.flex-grid { 
+  margin: 0 0 10px 0;
+}
+
+img { 
+  object-fit: contain;
+}
+</style>
+
+
+
+
+<style>
+    figure {
+  padding: 0;
+  margin: 0;
+}
+
+figure figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #fff;
+  padding: 10px;
+  background-color: black;
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  /* IE 5-7 */
+  filter: alpha(opacity=50);
+  /* Netscape */
+  -moz-opacity: 0.5;
+  /* Safari 1.x */
+  -khtml-opacity: 0.5;
+  /* Good browsers */
+  opacity: 0.5;
+}
+</style>

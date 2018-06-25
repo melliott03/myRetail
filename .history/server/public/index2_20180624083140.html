@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>myRetail</title>
+    
+</head>
+
+<body>
+    <div id="app" class="content">
+        <div class="container-wrapper">
+
+
+            <section class="container">
+                <div class="item">
+                    <!-- Container 1 -->
+                    <div class="title-text">{{catalogEntry.CatalogEntryView[0].title}}</div>
+                    <div class="primary-image">
+                        <img v-bind:src="catalogEntry.CatalogEntryView[0].Images[0].PrimaryImage[0].image" alt="Main Mixer">
+                    </div>
+                    <br>
+                    <br>
+                    <div class="view-larger">view larger</div>
+                    <br>
+                    <br>
+                    <div class="alternate-image">
+                        <div class="imgArrow" v-if="showRarrow" @click="nextAlternateImageSet('left')" > <span >&lt;</span></div>
+
+                        <span v-for="(image, i) in alternateImagesDisplay" :index="i">
+                            <span >
+                                <img v-bind:class="{'imgOutline': i == 1 }" v-bind:src="image.image" alt="Main Mixer">
+                            </span>
+                        </span>
+
+                        <div class="imgArrow" v-if="showRarrow" @click="nextAlternateImageSet('right')" > 
+                            <span>
+                                &gt;
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="item">
+                    <!-- container 2 -->
+                    <!-- <h2>title2</h2> -->
+                    <!-- <hr>Normally, the only way to achieve this would be either a hack, or to set
+                        all boxes to min-height.</div> -->
+                    <span class="price">{{catalogEntry.CatalogEntryView[0].Offers[0].OfferPrice[0].formattedPriceValue}}</span>
+                    <span class="online-price-text">{{catalogEntry.CatalogEntryView[0].Offers[0].OfferPrice[0].priceQualifier}}</span>
+                    <hr>
+                    <div class="promotions" v-for="(promotion, i) in catalogEntry.CatalogEntryView[0].Promotions" :index="i">
+                        <img src="assets/images/tag.svg" alt="" class="tag">{{promotion.Description[0].shortDescription}}
+                    </div>
+                    <hr>
+
+                    <p>quantity</p> 
+                    <span class="circle-minus"> &#8854; </span> 
+                    <span class="circle-plus"> &#8853; </span>
+
+
+                    <div class="flex-container">
+                        <span>
+                            <button class="btn-buy-pickup row">PICK UP IN STORE</button>
+                            <div class="find-in-store">
+                                find in a store
+                            </div>
+                        </span>
+                        
+                        <span>
+                            <button class="btn-buy-add row">ADD TO CART</button>
+                        </span>
+                        
+                    </div>
+                    <br>
+                    <div class="flex-container">
+                        <span class="row-return">
+                            returns
+                        </span>
+                        
+                        <span class="row-return-description">
+                            This item must be returned within 30 days of the ship date. See
+                            <link rel="stylesheet" href="/">return policy for details.
+                            <br> Prices, promotions, styles and availability may vary by store and online.
+                        </span>
+                    </div>
+                    <br>
+                    <div class="flex-container">
+                        <div class="cart-btn row">ADD TO REGISTRY</div>
+                        <div class="cart-btn row">ADD TO LIST</div>
+                        <div class="cart-btn row">SHARE</div>
+
+                    </div>
+                    <br>
+                    <div class="product-highlights">product highlights</div>
+                    <ul v-for="(feature, i) in catalogEntry.CatalogEntryView[0].ItemDescription[0].features" :index="i">
+
+                        <li class="product-highlights-text" v-html="feature">
+                        </li>
+
+                    </ul>
+            </section>
+
+
+            <section class="container sencond-container">
+                <div class="item">
+                    <!-- <h2>title3</h2> -->
+                    <div class="flex-container review-headers">
+                        <div class="row ">
+
+                            <span class="rating-all" v-for="index in parseFloat(catalogEntry.CatalogEntryView[0].CustomerReview[0].consolidatedOverallRating)"
+                                :key="index">
+                                <span>&#x2605;</span>
+                            </span>
+                            <span>overall</span>
+
+                        </div>
+                        <div class="row">
+                            view all {{catalogEntry.CatalogEntryView[0].CustomerReview[0].totalReviews}} reviews
+                        </div>
+
+                    </div>
+                    <div class="flex-container review-content">
+                        <div class="row ">
+                            <div class="subheader">
+                                PRO
+                            </div>
+                            <br> most helpful 4-5 star review
+                            <hr>
+                            <span v-for="(review, i) in catalogEntry.CatalogEntryView[0].CustomerReview[0].Pro" :index="i">
+                                <div v-for="i in 1">
+
+                                    <span class="rating" v-for="index in (5 - parseFloat(review.overallRating) )" :key="index">
+                                        <span class="counter-rating">&#x2605;</span>
+                                    </span>
+                                    <span class="rating" v-for="index in parseFloat(review.overallRating)" :key="index">
+                                        <span>&#x2605;</span>
+                                    </span>
+
+                                    <br>
+                                    <span class="review-subject">{{review.title}}</span>
+                                    <br> {{review.review}}
+                                    <br>
+                                    <span style="width: 2px" class="screen-name">
+                                        {{review.screenName}}
+                                    </span>
+                                    <span style="width: 2px"></span>
+                                    {{review.datePosted}}
+                                    <br>
+
+                                </div>
+                            </span>
+                        </div>
+                        <div class="row">
+                            <div class="subheader">
+                                CON
+                            </div>
+                            <br> most helpful 1-2 star review
+                            <hr>
+
+
+                            <span v-for="(review, i) in catalogEntry.CatalogEntryView[0].CustomerReview[0].Con " :index="i">
+                                <div v-for="i in 1">
+
+                                    <span class="rating" v-for="index in (5 - parseFloat(review.overallRating) )" :key="index">
+                                        <span class="counter-rating">&#x2605;</span>
+                                    </span>
+                                    <span class="rating" v-for="index in parseFloat(review.overallRating)" :key="index">
+                                        <span>&#x2605;</span>
+                                    </span>
+                                    <br>
+                                    <span class="review-subject">{{review.title}}</span>
+                                    <br> {{review.review}}
+                                    <br>
+
+                                    <span style="width: 2px" class="screen-name">
+                                        {{review.screenName}}
+                                    </span>
+                                    {{review.datePosted}}
+                                    <br>
+
+                                </div>
+                            </span>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+            </div>
+
+        </div>
+
+        <!-- development version, includes helpful console warnings -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+        <script src="assets/vendors/vue.js"></script>
+
+        <!-- production version, optimized for size and speed -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+        <script type="text/javascript" src="/assets/vendors/vue-carousel/vue-carousel.min.js"></script>
+        <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+        <script src="assets/vendors/axios.js"></script>
+
+        <!-- <script src="https://rawgit.com/Wlada/vue-carousel-3d/master/dist/vue-carousel-3d.min.js"></script> -->
+        <script src="assets/js/app.js"></script>
+</body>
+
+<style>
+    * {
+        font-family: Helvetica;
+        color: #000000;
+        /* background: #fff */
+    }
+
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        /*  */
+    }
+
+    .content {
+        max-width: 1200px;
+        width: 100%;
+        margin: auto;
+        /* margin: 15px; */
+        /* padding: 15px; */
+    }
+
+    .container-wrapper {
+        margin: 2em;
+    }
+
+    .container {
+        display: flex;
+
+    }
+
+    .item {
+        /* background-color: black; */
+        box-sizing: border-box;
+        padding: 20px;
+        flex: none;
+        color: #fff;
+        width: 55%;
+        /* margin: 100px 10px 0 10px; */
+        /* padding: 10px; */
+    }
+
+    .item:nth-child(2) {
+        background-color: white;
+        flex: 2;
+        /* margin: 10px 0 0 10px; */
+    }
+
+    .item:nth-child(3) {
+        background-color: green;
+        flex: 2;
+        flex-basis: 50%;
+    }
+
+    .primary-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        overflow: hidden;
+    }
+
+    .primary-image img {
+        /* max-width:100%;
+        max-height:100%;
+        margin: auto; */
+    }
+
+    .alternate-image {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .alternate-image img {
+        height: 100px;
+        width: auto;
+        display: inline-block;
+        margin: auto;
+    }
+
+
+    .title-text {
+        height: 120px;
+        font-size: 26px;
+        line-height: 30px;
+        color: rgb(0, 0, 0);
+        font-family: "Helvetica";
+        text-align: center; 
+    }
+    .title-text sup {
+        color: aqua;
+        font-size: 10px;
+    }
+
+    .price {
+        font-size: 1.8em;
+        /* font-size: 30px; */
+        letter-spacing: -1px;
+        line-height: 14px;
+        color: rgb(0, 0, 0);
+        font-family: "Arial";
+        font-weight: bold;
+    }
+
+    .online-price-text {
+        font-size: .8em;
+        line-height: 29px;
+        color: rgb(102, 102, 102);
+        font-family: "Arial";
+        text-transform: lowercase;
+    }
+
+    .promotions {
+        font-size: 16px;
+        letter-spacing: 0px;
+        line-height: 25px;
+        color: rgb(204, 0, 0);
+        font-family: "Arial";
+        /* text-transform: lowercase; */
+    }
+
+    .tag {
+        margin-right: 10px;
+    }
+
+    .returns {
+        width: 84px;
+        height: 38px;
+        font-size: 20px;
+        letter-spacing: 0px;
+        line-height: 18px;
+        color: rgb(102, 102, 102);
+        font-family: "Helvetica Neue LT Std";
+    }
+
+    .flex-container {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        -ms-box-orient: horizontal;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -moz-flex;
+        display: -webkit-flex;
+        display: flex;
+    }
+
+    .row {
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        width: 50%;
+
+    }
+
+    .row-return {
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        font-size: 1em;
+        width: 16%;
+        color: rgb(96, 96, 96);
+        border-right: 1px solid gray;
+        margin-right: 5px;
+    }
+
+    .row-return-description {
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        width: 88%;
+        font-size: .08em;
+        color: rgb(96, 96, 96);
+        margin-left: 5px;
+    }
+
+    .imgArrow {
+        font:50px 'Arial', sans-serif;
+        font-weight: 100;
+        display:inline-block;
+        -webkit-transform: scale(.5, 1);
+        -moz-transform: scale(.5, 1);
+        -ms-transform: scale(.5, 1);
+        --transform: scale(.5, 1);
+        transform: scale(.5, 1);
+        cursor: pointer;
+        margin: 10px;
+
+    }
+    .imgArrow span {
+        color: rgb(96, 96, 96);
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+    .imgOutline{
+        border-color: rgb(96, 96, 96);
+        border-style: solid;
+        padding: 10px;
+        border-width: 1px;
+    }
+    .class1{
+        background: #444;
+        color: #eee;
+    }
+
+
+    @media screen and (max-width:600px) {
+        .container {
+            flex-wrap: wrap;
+        }
+        .item:first-child {
+            flex-basis: 100%;
+        }
+        .sencond-container.item {
+            max-width: 100%;
+            flex-basis: 100%;
+        }
+        .view-larger {
+            display: none;
+        }
+        .title-text {
+            font-weight: 100; 
+        }
+    }
+
+    .product-highlights {
+        width: 470px;
+        /* height: 316px; */
+        font-size: 36px;
+        line-height: 50px;
+        color: rgb(0, 0, 0);
+        font-family: "Helvetica";
+    }
+
+    .product-highlights-text {
+        /* width: 470px;
+        height: 316px; */
+        font-size: .8em;
+        line-height: 120%;
+        color: rgb(96, 96, 96);
+        font-family: "Helvetica";
+        text-indent: 3px;
+        font-weight: 400;
+    }
+
+    strong,
+    b {
+        font-weight: 400;
+        color: rgb(96, 96, 96);
+
+    }
+
+    .cart-btn {
+        width: 149px;
+        height: 25px;
+        border-radius: 3px;
+        background-color: #f3f3f3;
+        /* border: 1px solid #999999; */
+        font-size: 12px;
+        line-height: 30px;
+        color: rgb(51, 51, 51);
+        font-family: "Arial";
+        display: inline-block;
+        margin: 2px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 25px;
+        cursor: pointer;
+    }
+
+    .btn-buy-add {
+        width: 225px;
+        height: 40px;
+        border-radius: 3px;
+        box-shadow: 0.5px 0.866px 2px rgba(0, 0, 0, 0.5);
+        background: linear-gradient(rgb(255, 169, 169), red 20%);
+        font-size: .8em;
+        line-height: 19px;
+        color: rgb(255, 255, 255);
+        font-family: "Helvetica";
+        display: inline-block;
+        font-weight: 100;
+        cursor: pointer;
+    }
+
+    .btn-buy-pickup {
+        width: 225px;
+        height: 40px;
+        border-radius: 3px;
+        box-shadow: 0.5px 0.866px 2px rgba(0, 0, 0, 0.5);
+        background: linear-gradient(rgb(92, 92, 92), black 20%);
+        font-size: .8em;
+        line-height: 19px;
+        color: rgb(255, 255, 255);
+        font-family: "Helvetica";
+        display: inline-block;
+        font-stretch: ultra-expanded;
+        font-weight: 100;
+        margin-bottom: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .find-in-store {
+        width: 100px;
+        margin: auto;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 14px;
+        color: rgb(0, 0, 0);
+        font-family: "Helvetica";
+
+    }
+
+    .review-headers {
+        width: 100%;
+        height: 40px;
+        font-size: 14px;
+        letter-spacing: 0px;
+        line-height: 24px;
+        color: rgb(0, 0, 0);
+        font-family: "Arial";
+        font-weight: bold;
+    }
+
+    .review-content {
+        width: 100%;
+        height: 269px;
+        border-radius: 3px;
+        /* border: 1px solid #cbcbcb; */
+        color: rgb(36, 36, 36);
+        /* border: 1px solid #cbcbcb; */
+        background-color: rgb(246, 245, 245);
+        padding: 20px;
+        font-family: "Myriad Pro";
+        font-size: .7em;
+        line-height: 1.5em;
+    }
+
+    .review-subject {
+        width: 207px;
+        height: 257px;
+        font-size: 18px;
+        line-height: 24px;
+        color: rgb(0, 0, 0);
+        font-family: "Arial";
+        font-weight: bold;
+    }
+
+    .screen-name {
+        color: rgb(33, 103, 197);
+        font-family: "Myriad";
+    }
+
+    .review-content div {
+        margin: 2px
+    }
+
+    .review-content .subheader {
+        font-weight: 500;
+        font-size: 20px;
+        font-stretch: condensed;
+    }
+
+
+    .rating-all {
+        unicode-bidi: bidi-override;
+        direction: rtl;
+        font-size: 25px;
+    }
+    .rating-all>span {
+        display: inline-block;
+        position: relative;
+        width: 1.1em;
+        color: red
+    }
+    .rating {
+        unicode-bidi: bidi-override;
+        direction: rtl;
+    }
+    .rating>span {
+        display: inline-block;
+        position: relative;
+        width: 1.1em;
+        color: red
+    }
+
+    .rating .counter-rating {
+        color: gray
+    }
+
+    .circle-plus {
+        content: '\e80f'
+    }
+    .circle-minus {
+        content: 'U+2296'
+    }
+
+
+    button:focus {
+        outline: 0;
+    }
+</style>
