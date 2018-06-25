@@ -110,6 +110,10 @@ new Vue({
             let direction = null;
             this.nextAlternateImageSet(direction, index)
         }
-    }
+    },
+    components: {
+        'carousel-3d': Carousel3d.Carousel3d,
+        'slide': Carousel3d.Slide
+      }
 })
 

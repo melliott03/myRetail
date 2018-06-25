@@ -69,6 +69,25 @@ new Vue({
         })
     },
     methods: {
+        toggle: function(){
+            this.isOpen = !this.isOpen
+        },
+        submitContact: function (data, object) {
+            data.object = object
+            axios
+            .post('/contact', data)
+            .then((response) => {
+                this.msg = response.data;
+            })
+        }
+        ,
+        submitVolunteer: function (data) {
+            axios
+            .post('/volunteer', data)
+            .then((response) => {
+                this.msg = response.data;
+            })
+        },
         nextAlternateImageSet: function (direction, index) {
             if (index) {
                 if(index < this.altImgStart){
@@ -110,6 +129,10 @@ new Vue({
             let direction = null;
             this.nextAlternateImageSet(direction, index)
         }
-    }
+    },
+    components: {
+        'carousel-3d': Carousel3d.Carousel3d,
+        'slide': Carousel3d.Slide
+      }
 })
 

@@ -69,7 +69,53 @@ new Vue({
         })
     },
     methods: {
+        toggle: function(){
+            this.isOpen = !this.isOpen
+        },
+        greet: function (event) {
+          // `this` inside methods points to the Vue instance
+          alert('Hello ' + this.name + '!')
+          // `event` is the native DOM event
+          if (event) {
+            alert(event.target.tagName)
+          }
+        },
+        getCoindesk: function (event) {
+            axios
+            .get('https://jsonplaceholder.typicode.com/posts/1')
+            .then((response) => {
+                console.log('in getCoindesk, response::', response);
+                this.msg = response.data.body;
+            })
+        }
+        ,
+        submitContact: function (data, object) {
+            console.log('submitContact:, data:', data);
+            console.log('submitContact:, object:', object);
+            data.object = object
+            axios
+            .post('/contact', data)
+            .then((response) => {
+                console.log('in submitContact, response::', response);
+                this.msg = response.data;
+            })
+        }
+        ,
+        submitVolunteer: function (data) {
+            console.log('submitVolunteer:, data:', data);
+            console.log('submitVolunteer:, VueStripeCheckout:', VueStripeCheckout);
+            axios
+            .post('/volunteer', data)
+            .then((response) => {
+                console.log('in submitVolunteer, response::', response);
+                this.msg = response.data;
+            })
+        },
         nextAlternateImageSet: function (direction, index) {
+            console.log('in nextAlternateImageSet, index::', index);
+            console.log('in nextAlternateImageSet, before, this.altImgStart::', this.altImgStart);
+            console.log('in nextAlternateImageSet, before, this.altImgEnd::', this.altImgEnd);
+
             if (index) {
                 if(index < this.altImgStart){
                     direction = 'left'
@@ -102,14 +148,28 @@ new Vue({
                     this.showRarrow = true;
                 }
             }
+            
+            console.log('in nextAlternateImageSet, after, this.altImgStart::', this.altImgStart);
+            console.log('in nextAlternateImageSet, after, this.altImgEnd::', this.altImgEnd);
+
+            
             this.alternateImagesDisplay = this.allAlternateImages.slice(this.altImgStart, this.altImgEnd);
+            
         },
         primaryImageSet: function(index){
+            console.log('inside primaryImageSet, index::', index);
             this.alternateImagesDisplay[index];
+            console.log('this.alternateImagesDisplay[index]', this.alternateImagesDisplay[index].image);
+            
             this.primaryImage = this.alternateImagesDisplay[index].image;
             let direction = null;
             this.nextAlternateImageSet(direction, index)
+
         }
-    }
+    },
+    components: {
+        'carousel-3d': Carousel3d.Carousel3d,
+        'slide': Carousel3d.Slide
+      }
 })
 
